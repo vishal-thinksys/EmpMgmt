@@ -13,5 +13,7 @@ namespace EmpMgmt.Entity
         public DateTime DOB { get; set; }
         public string EmailId { get; set; }
         public string MobileNo { get; set; }
+        public double Salary { get; set; }
+        public DateTime DOJ { get; set; }
     }
 }
