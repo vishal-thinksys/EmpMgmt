@@ -99,5 +99,7 @@ void printDetail(Employee emp)
     Console.WriteLine("DOB   =" + emp.DOB.ToString());
     Console.WriteLine("Email =" + emp.EmailId);
     Console.WriteLine("Mobile=" + emp.MobileNo);
+    Console.WriteLine("Salary =" + emp.Salary.ToString());
+    Console.WriteLine("Date of Joinning=" + emp.DOJ.ToString());
     Console.WriteLine("");
 }
