@@ -125,6 +125,13 @@ while (n > 0)
             abstractClass.CallAbstractClass();
             CommanCommandName();
             break;
+        case 106:
+            Console.Write("\nPlease Enter the Text for Find Repeated Character:\t");
+            string text = Console.ReadLine();
+            DictonaryUse dictonaryUse = new DictonaryUse();
+            dictonaryUse.CountRepeatedChar(text);
+            CommanCommandName();
+            break;
         default:
             Console.WriteLine("\nPlease enter correct key\n");
             n = 1;
@@ -148,6 +155,7 @@ void CommanCommandName()
     Console.WriteLine("Calculate Area of Triangle Press 103");
     Console.WriteLine("Multiple Inheritance Code Run for Press 104");
     Console.WriteLine("Abstract class Code Run for Press 105");
+    Console.WriteLine("Find the repeated charater of string for Press 106");
     Console.Write("Please Enter the Number\t");
     bool isNumerical = int.TryParse(Console.ReadLine(), out n);
     n = isNumerical ? n : 0;
