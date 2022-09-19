@@ -132,6 +132,14 @@ while (n > 0)
             dictonaryUse.CountRepeatedChar(text);
             CommanCommandName();
             break;
+        case 107:
+            FileSystem fileSystem = new FileSystem();
+            fileSystem.CreateFile();
+            fileSystem.InsertDataInFile();
+            fileSystem.ReadDataFromFile();
+            fileSystem.StringReplaceInFile("Vishal","Rohan");
+            CommanCommandName();
+            break;
         default:
             Console.WriteLine("\nPlease enter correct key\n");
             n = 1;
@@ -170,7 +178,7 @@ void PrintDetail(List<Employee> list)
         Console.WriteLine($"Email ={list[i].EmailId}");
         Console.WriteLine($"Mobile={list[i].MobileNo}");
         Console.WriteLine($"Salary={list[i].Salary.ToString()}");
-        Console.WriteLine($"Date of Joinning={list[i].DOJ.ToString()}");
+        Console.WriteLine($"Date of Joinning={list[i].DOJ}");
         Console.WriteLine("");
     }
 
