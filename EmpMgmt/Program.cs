@@ -143,7 +143,14 @@ while (n > 0)
         case 108:
             SerializationDeserialization serializationDeserialization = new SerializationDeserialization();
             serializationDeserialization.ConvertListToJson();
+           
+            //serializationDeserialization.StringReplaceInJson("Rai", "Kumar");
             serializationDeserialization.ConvertJsonToList();
+            CommanCommandName();
+            break;
+        case 109:
+            SerializationDeserialization serialization = new SerializationDeserialization();
+            serialization.UpdateEmployeeDetail();
             CommanCommandName();
             break;
         default:
@@ -172,6 +179,7 @@ void CommanCommandName()
     Console.WriteLine("Find the repeated charater of string for Press 106");
     Console.WriteLine("For file System Press 107");
     Console.WriteLine("For Json Serialization and Deserialization  Press 108");
+    Console.WriteLine("Update Employee Detail in Json File  Press 109");
     Console.Write("Please Enter the Number\t");
     bool isNumerical = int.TryParse(Console.ReadLine(), out n);
     n = isNumerical ? n : 0;
@@ -184,11 +192,11 @@ public class PrintList
         {
             Console.WriteLine($"ID    ={list[i].EmpID}");
             Console.WriteLine($"Name  ={list[i].Name}");
-            Console.WriteLine($"DOB   ={list[i].DOB.ToString()}");
+            Console.WriteLine($"DOB   ={list[i].DOB:D}");
             Console.WriteLine($"Email ={list[i].EmailId}");
             Console.WriteLine($"Mobile={list[i].MobileNo}");
             Console.WriteLine($"Salary={list[i].Salary.ToString()}");
-            Console.WriteLine($"Date of Joinning={list[i].DOJ}");
+            Console.WriteLine($"Date of Joinning={list[i].DOJ:D}");
             Console.WriteLine("");
         }
 
