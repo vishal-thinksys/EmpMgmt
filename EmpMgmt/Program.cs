@@ -13,7 +13,7 @@ while (n > 0)
     {
         case 1:
             List<Employee> list = EmployeeMethod();
-            PrintDetail(list);
+            PrintList.PrintDetail(list);
             CommanCommandName();
             break;
         case 11:
@@ -23,7 +23,7 @@ while (n > 0)
             lists = lists.Where(x => x.EmpID == m).ToList();
             if (lists.Count > 0)
             {
-                PrintDetail(lists);
+                PrintList.PrintDetail(lists);
             }
             else
             {
@@ -57,7 +57,7 @@ while (n > 0)
             listed = listed.Where(x => x.Name.ToUpper().Trim() == Name.ToUpper().Trim()).ToList();
             if (listed.Count > 0)
             {
-                PrintDetail(listed);
+                PrintList.PrintDetail(listed);
             }
             else
             {
@@ -139,6 +139,12 @@ while (n > 0)
             fileSystem.ReadDataFromFile();
             fileSystem.StringReplaceInFile("Vishal","Rohan");
             CommanCommandName();
+            break; 
+        case 108:
+            SerializationDeserialization serializationDeserialization = new SerializationDeserialization();
+            serializationDeserialization.ConvertListToJson();
+            serializationDeserialization.ConvertJsonToList();
+            CommanCommandName();
             break;
         default:
             Console.WriteLine("\nPlease enter correct key\n");
@@ -165,22 +171,27 @@ void CommanCommandName()
     Console.WriteLine("Abstract class Code Run for Press 105");
     Console.WriteLine("Find the repeated charater of string for Press 106");
     Console.WriteLine("For file System Press 107");
+    Console.WriteLine("For Json Serialization and Deserialization  Press 108");
     Console.Write("Please Enter the Number\t");
     bool isNumerical = int.TryParse(Console.ReadLine(), out n);
     n = isNumerical ? n : 0;
 }
-void PrintDetail(List<Employee> list)
+public class PrintList
 {
-    for (int i = 0; i < list.Count; i++)
+    public static void PrintDetail(List<Employee> list)
     {
-        Console.WriteLine($"ID    ={list[i].EmpID}");
-        Console.WriteLine($"Name  ={list[i].Name}");
-        Console.WriteLine($"DOB   ={list[i].DOB.ToString()}");
-        Console.WriteLine($"Email ={list[i].EmailId}");
-        Console.WriteLine($"Mobile={list[i].MobileNo}");
-        Console.WriteLine($"Salary={list[i].Salary.ToString()}");
-        Console.WriteLine($"Date of Joinning={list[i].DOJ}");
-        Console.WriteLine("");
-    }
+        for (int i = 0; i < list.Count; i++)
+        {
+            Console.WriteLine($"ID    ={list[i].EmpID}");
+            Console.WriteLine($"Name  ={list[i].Name}");
+            Console.WriteLine($"DOB   ={list[i].DOB.ToString()}");
+            Console.WriteLine($"Email ={list[i].EmailId}");
+            Console.WriteLine($"Mobile={list[i].MobileNo}");
+            Console.WriteLine($"Salary={list[i].Salary.ToString()}");
+            Console.WriteLine($"Date of Joinning={list[i].DOJ}");
+            Console.WriteLine("");
+        }
 
+    }
 }
+
