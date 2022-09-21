@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using EmpMgmt;
 using EmpMgmt.Entity;
-
+using EmpMgmt.JsonUtility;
 
 Console.WriteLine("Welcome to Employee Management System!");
 int n;
@@ -139,18 +139,25 @@ while (n > 0)
             fileSystem.ReadDataFromFile();
             fileSystem.StringReplaceInFile("Vishal","Rohan");
             CommanCommandName();
-            break; 
+            break;
         case 108:
-            SerializationDeserialization serializationDeserialization = new SerializationDeserialization();
-            serializationDeserialization.ConvertListToJson();
-           
-            //serializationDeserialization.StringReplaceInJson("Rai", "Kumar");
-            serializationDeserialization.ConvertJsonToList();
+            AddEmpData addEmp = new AddEmpData();
+            addEmp.ConvertListToJson();
             CommanCommandName();
             break;
         case 109:
-            SerializationDeserialization serialization = new SerializationDeserialization();
-            serialization.UpdateEmployeeDetail();
+            AddEmpData addEmpData = new AddEmpData();
+            addEmpData.AddNewEmpDetailInJsonFile();
+            CommanCommandName();
+            break;
+        case 110:
+            UpdateEmpData updateEmpData = new UpdateEmpData();
+            updateEmpData.UpdateEmployeeDetail();
+            CommanCommandName();
+            break;
+        case 111:
+            ShowEmpData showEmp = new ShowEmpData();
+            showEmp.ConvertJsonToList();
             CommanCommandName();
             break;
         default:
@@ -178,8 +185,10 @@ void CommanCommandName()
     Console.WriteLine("Abstract class Code Run for Press 105");
     Console.WriteLine("Find the repeated charater of string for Press 106");
     Console.WriteLine("For file System Press 107");
-    Console.WriteLine("For Json Serialization and Deserialization  Press 108");
-    Console.WriteLine("Update Employee Detail in Json File  Press 109");
+    Console.WriteLine("Add Employee From List To Json  Press 108");
+    Console.WriteLine("Add New Employee In Json  Press 109");
+    Console.WriteLine("Update/Delete Employee Detail in Json File  Press 110");
+    Console.WriteLine("Show Employee Detail From Json File  Press 111");
     Console.Write("Please Enter the Number\t");
     bool isNumerical = int.TryParse(Console.ReadLine(), out n);
     n = isNumerical ? n : 0;
