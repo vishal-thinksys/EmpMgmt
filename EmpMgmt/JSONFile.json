@@ -1,16 +1,7 @@
 [
   {
-    "EmpID": 1,
-    "Name": "vishal",
-    "DOB": "11 January 2000",
-    "EmailId": "kumar.vishal@thinksys.com",
-    "MobileNo": "8294628952",
-    "Salary": 20000.0,
-    "DOJ": "13 September 2022"
-  },
-  {
     "EmpID": 2,
-    "Name": "Shree",
+    "Name": "Shree Kumar",
     "DOB": "10 May 1998",
     "EmailId": "kumar.Shree@thinksys.com",
     "MobileNo": "8294645672",
@@ -70,14 +61,5 @@
     "MobileNo": "8978779079",
     "Salary": 12098.0,
     "DOJ": "12 May 2022"
-  },
-  {
-    "EmpID": 9,
-    "Name": "Hari Kumar",
-    "DOB": "10 May 1995",
-    "EmailId": "kumar.Hari@thinksys.com",
-    "MobileNo": "879086587",
-    "Salary": 67585.0,
-    "DOJ": "17 September 2021"
   }
 ]

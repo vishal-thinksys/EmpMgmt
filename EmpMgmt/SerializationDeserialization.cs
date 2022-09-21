@@ -87,70 +87,50 @@ namespace EmpMgmt
                     Console.WriteLine("Press 2 for DOB");
                     Console.WriteLine("Press 3 for EmailId");
                     Console.WriteLine("Press 4 for MobileNo");
-                    Console.WriteLine("Press 5 for Delete Employee record");
-                    //Console.WriteLine("Press 5 for Salary");
-                    //Console.WriteLine("Press 6 for DOJ");
+                    Console.WriteLine("Press 5 for Salary");
+                    Console.WriteLine("Press 6 for DOJ");
+                    Console.WriteLine("Press 7 for Delete Employee record");
                     Console.WriteLine("Please Enter the number:");
                     int n = int.TryParse(Console.ReadLine(), out n) ? n : 0;
-                    var setting = new JsonSerializerSettings() { DateFormatString = "dd MMMM yyyy" };                    
+                    Employee empl;
+                    //var setting = new JsonSerializerSettings() { DateFormatString = "dd MMMM yyyy" };                    
                     switch (n)
                     {
                         case 1:
                             Console.WriteLine("Please Enter New Name:");
-                            List<Employee> employees = JsonConvert.DeserializeObject<List<Employee>>(Json);
-                            employees = employees.Where(x => x.EmpID != m).ToList();
-                            Employee empl = emp.Where(x => x.EmpID == m).Select(y => { y.Name = Console.ReadLine() ?? ""; return y; }).ToList().FirstOrDefault();
-                            employees.Add(empl);
-                            employees = employees.OrderBy(X => X.EmpID).ToList();  
-                            string serializedJson = JsonConvert.SerializeObject(employees, Formatting.Indented, setting);
-                            using (FileStream fs = new FileStream(fileName, FileMode.Truncate, FileAccess.Write))
-                            {
-                                using (StreamWriter sw = new StreamWriter(fs))
-                                {
-                                    sw.WriteLine(serializedJson);
-                                }
-                            }
-                            PrintList.PrintDetail(employees);
+                            empl = emp.Where(x => x.EmpID == m).Select(y => { y.Name = Console.ReadLine() ?? ""; return y; }).FirstOrDefault();
+                            ReWriteInJsonFile(Json, m, empl);
+
                             break;
                         case 2:
                             Console.WriteLine("Please Enter New DOB(dd-mm-yyyy):");
                             DateTime d;
                             if (DateTime.TryParseExact(Console.ReadLine(), "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out d))
                             {
-                                List<Employee> employees2 = JsonConvert.DeserializeObject<List<Employee>>(Json);
-                                employees2 = employees2.Where(x => x.EmpID != m).ToList();
-                                Employee empl2 = emp.Where(x => x.EmpID == m).Select(y => { y.DOB = Convert.ToDateTime(d); return y; }).ToList().FirstOrDefault();
-                                employees2.Add(empl2);
-                                employees2 = employees2.OrderBy(X => X.EmpID).ToList();
-                                string serializedJson2 = JsonConvert.SerializeObject(employees2, Formatting.Indented, setting);
-                                using (FileStream fs = new FileStream(fileName, FileMode.Truncate, FileAccess.Write))
-                                {
-                                    using (StreamWriter sw = new StreamWriter(fs))
-                                    {
-                                        sw.WriteLine(serializedJson2);
-                                    }
-                                }
-                                PrintList.PrintDetail(employees2);
+                                empl = emp.Where(x => x.EmpID == m).Select(y => { y.DOB = Convert.ToDateTime(d); return y; }).FirstOrDefault();
+                                ReWriteInJsonFile(Json, m, empl);
+
                             }
                             else
                                 Console.WriteLine("You are enter wrong Date");
                             break;
                         case 3:
                             Console.WriteLine("Please Enter New EmailId:");
-                            List<Employee> employees3 = JsonConvert.DeserializeObject<List<Employee>>(Json);
-                            employees3 = employees3.Where(x => x.EmpID != m).ToList();
-                            Employee empl3 = emp.Where(x => x.EmpID == m).Select(y => { y.EmailId = Console.ReadLine() ?? ""; return y; }).ToList().FirstOrDefault();
-                            employees3.Add(empl3);
-                            employees3 = employees3.OrderBy(X => X.EmpID).ToList();
-                            string serializedJson3 = JsonConvert.SerializeObject(employees3, Formatting.Indented, setting);
-                            using (FileStream fs = new FileStream(fileName, FileMode.Truncate, FileAccess.Write))
+                            string Email=Console.ReadLine().Trim();
+                            if (Email.Length>0)
                             {
-                                using (StreamWriter sw = new StreamWriter(fs))
+                                if (JsonConvert.DeserializeObject<List<Employee>>(Json).Where(x => x.EmailId.ToUpper() == Email.ToUpper()).ToList().Count == 0)
                                 {
-                                    sw.WriteLine(serializedJson3);
+                                    empl = emp.Where(x => x.EmpID == m).Select(y => { y.EmailId = Email; return y; }).FirstOrDefault();
+                                    ReWriteInJsonFile(Json, m, empl);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Email Already Exist!!!");
                                 }
                             }
-                            PrintList.PrintDetail(employees3);
+                            else
+                                Console.WriteLine("You are not enter any email!");
                             break;
                         case 4:
                             Console.WriteLine("Please Enter New MobileNo:");
@@ -160,20 +140,16 @@ namespace EmpMgmt
                                 double r;
                                 if (double.TryParse(mob, out r))
                                 {
-                                    List<Employee> employees4 = JsonConvert.DeserializeObject<List<Employee>>(Json);
-                                    employees4 = employees4.Where(x => x.EmpID != m).ToList();
-                                    Employee empl4 = emp.Where(x => x.EmpID == m).Select(y => { y.MobileNo = mob; return y; }).ToList().FirstOrDefault();
-                                    employees4.Add(empl4);
-                                    employees4 = employees4.OrderBy(X => X.EmpID).ToList();
-                                    string serializedJson4 = JsonConvert.SerializeObject(employees4, Formatting.Indented, setting);
-                                    using (FileStream fs = new FileStream(fileName, FileMode.Truncate, FileAccess.Write))
+                                    if (JsonConvert.DeserializeObject<List<Employee>>(Json).Where(x=>x.MobileNo== mob).ToList().Count==0)
                                     {
-                                        using (StreamWriter sw = new StreamWriter(fs))
-                                        {
-                                            sw.WriteLine(serializedJson4);
-                                        }
+                                        empl = emp.Where(x => x.EmpID == m).Select(y => { y.MobileNo = mob; return y; }).FirstOrDefault();
+                                        ReWriteInJsonFile(Json, m, empl);
                                     }
-                                    PrintList.PrintDetail(employees4);
+                                    else
+                                    {
+                                        Console.WriteLine("Mobile Number Already Exist!!!");
+                                    }
+
                                 }
                                 else
                                     Console.WriteLine("Please Enter Valid Mobile No");
@@ -182,20 +158,35 @@ namespace EmpMgmt
                                 Console.WriteLine("Please Enter Valid Mobile No");
                             break;
                         case 5:
-                            Console.WriteLine("Are you sure want to delete then press y");
-                            if (Console.ReadLine()=="y")
+                            Console.WriteLine("Please Enter New Salary:");
+                            string salary = Console.ReadLine();
+                            double sal;
+                            if (double.TryParse(salary, out sal))
                             {
-                                List<Employee> employees5 = JsonConvert.DeserializeObject<List<Employee>>(Json);
-                                employees5 = employees5.Where(x => x.EmpID != m).ToList();
-                                string serializedJson5 = JsonConvert.SerializeObject(employees5, Formatting.Indented, setting);
-                                using (FileStream fs = new FileStream(fileName, FileMode.Truncate, FileAccess.Write))
-                                {
-                                    using (StreamWriter sw = new StreamWriter(fs))
-                                    {
-                                        sw.WriteLine(serializedJson5);
-                                    }
-                                }
-                                PrintList.PrintDetail(employees5);
+                                empl = emp.Where(x => x.EmpID == m).Select(y => { y.Salary = sal; return y; }).FirstOrDefault();
+                                ReWriteInJsonFile(Json, m, empl);
+
+                            }
+                            else
+                                Console.WriteLine("Please Enter Valid Amount");
+                            break;
+                        case 6:
+                            Console.WriteLine("Please Enter New DOJ (dd-mm-yyyy):");
+                            DateTime dat;
+                            if (DateTime.TryParseExact(Console.ReadLine(), "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dat))
+                            {
+                                empl = emp.Where(x => x.EmpID == m).Select(y => { y.DOJ = Convert.ToDateTime(dat); return y; }).FirstOrDefault();
+                                ReWriteInJsonFile(Json, m, empl);
+                            }
+                            else
+                                Console.WriteLine("You are enter wrong Date");
+                            break;
+                        case 7:
+                            Console.WriteLine("Are you sure want to delete then press y");
+                            if (Console.ReadLine() == "y")
+                            {
+                                empl = new Employee();
+                                ReWriteInJsonFile(Json, m, empl);
                             }
                             else
                                 Console.WriteLine("You are enter wrong key");
@@ -204,17 +195,32 @@ namespace EmpMgmt
                             Console.WriteLine("You are enter Wrong Number");
                             break;
                     }
-
-
                 }
                 else
                     Console.WriteLine($"EmpID {m} does not exist in the Json file ");
-                //PrintList.PrintDetail(emp);
             }
             else
             {
                 Console.WriteLine("Json File does not exist!");
             }
+        }
+        void ReWriteInJsonFile(string Json, int id, Employee emp)
+        {
+            List<Employee> employees = JsonConvert.DeserializeObject<List<Employee>>(Json);
+            employees = employees.Where(x => x.EmpID != id).ToList();
+            if (emp.EmpID!=0)
+                employees.Add(emp);
+            employees = employees.OrderBy(X => X.EmpID).ToList();
+            var setting = new JsonSerializerSettings() { DateFormatString = "dd MMMM yyyy" };
+            string serializedJson = JsonConvert.SerializeObject(employees, Formatting.Indented, setting);
+            using (FileStream fs = new FileStream(fileName, FileMode.Truncate, FileAccess.Write))
+            {
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    sw.WriteLine(serializedJson);
+                }
+            }
+            PrintList.PrintDetail(employees);
         }
         public void StringReplaceInJson(string Oldtext, string Newtext)
         {
