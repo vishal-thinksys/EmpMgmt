@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using EmpMgmt;
+using EmpMgmt.DependencyInjection;
 using EmpMgmt.Entity;
 using EmpMgmt.JsonUtility;
 
@@ -160,6 +161,16 @@ while (n > 0)
             showEmp.ConvertJsonToList();
             CommanCommandName();
             break;
+        case 200:
+            DependencyInjectionExample di = new DependencyInjectionExample();
+            di.CallDependencyInjectionExample();
+            CommanCommandName();
+            break;
+        case 201:
+            EmployeeBAL emp = new EmployeeBAL(new EmployeeDAL());
+            PrintList.PrintDetail(emp.ListOfAllEmployee());
+            CommanCommandName();
+            break;
         default:
             Console.WriteLine("\nPlease enter correct key\n");
             n = 1;
@@ -189,6 +200,8 @@ void CommanCommandName()
     Console.WriteLine("Add New Employee In Json  Press 109");
     Console.WriteLine("Update/Delete Employee Detail in Json File  Press 110");
     Console.WriteLine("Show Employee Detail From Json File  Press 111");
+    Console.WriteLine("Dependency Injection Example Press 200");
+    Console.WriteLine("Using Dependency Injection Show Employee List Press 201");
     Console.Write("Please Enter the Number\t");
     bool isNumerical = int.TryParse(Console.ReadLine(), out n);
     n = isNumerical ? n : 0;
